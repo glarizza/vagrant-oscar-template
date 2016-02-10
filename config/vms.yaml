@@ -1,0 +1,21 @@
+---
+vms:
+  - name: master
+    hostname: master.puppetlabs.vm
+    box: 'puppetlabs/centos-7.2-64-nocm'
+    roles: [pe-puppet-master]
+
+  - name: console
+    hostname: console.puppetlabs.vm
+    box: 'puppetlabs/centos-7.2-64-nocm'
+    roles: [pe-puppet-master]
+
+  - name: puppetdb
+    hostname: puppetdb.puppetlabs.vm
+    box: 'puppetlabs/centos-7.2-64-nocm'
+    roles: [pe-puppet-master]
+
+  - name: agent1
+    hostname: agent1.puppetlabs.vm
+    box: 'puppetlabs/centos-7.2-64-nocm'
+    roles: [pe-puppet-agent]

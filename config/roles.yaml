@@ -1,0 +1,32 @@
+---
+roles:
+  pe-puppet-master:
+    private_networks:
+      - {ip: '0.0.0.0', auto_network: true}
+    provider:
+      type: virtualbox
+      customize:
+        - [modifyvm, !ruby/sym id, '--memory', 4096]
+    provisioners:
+      - {type: hosts}
+   # THIS does a master install with answers for R10k
+   #   - type: pe_bootstrap
+   #     role: !ruby/sym master
+   #     answer_extras:
+   #       - "q_puppetmaster_r10k_remote=https://github.com/glarizza/puppet_repository.git"
+   #        - "q_puppetmaster_r10k_private_key=/vagrant/ssh/vagrant_master"
+   # THIS will shut off the firewall in RHEL6
+   #   - type: shell
+   #     inline: "service iptables stop; setenforce 0 || true"
+   # THIS will shut off the firewall in RHEL7
+   #   - type: shell
+   #     inline: "systemctl stop firewalld.service; systemctl disable firewalld.service"
+   #   - type: shell
+   #     inline: "r10k deploy environment -pv"
+  pe-puppet-agent:
+    private_networks:
+      - {ip: '0.0.0.0', auto_network: true}
+    provisioners:
+      - {type: hosts}
+      - type: pe_agent
+        master: master.puppetlabs.vm
